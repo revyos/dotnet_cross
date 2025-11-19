@@ -6,16 +6,16 @@ on:
   workflow_dispatch:
 
 env:
-  RUNTIME_VERSION: '8.0.19'
-  SDK_VERSION: '8.0.413'
-  ASPNETCORE_VERSION: '8.0.19'
+  RUNTIME_VERSION: '8.0.22'
+  SDK_VERSION: '8.0.416'
+  ASPNETCORE_VERSION: '8.0.22'
   # check eng/Versions.props in installer repo
   # MicrosoftNETCorePlatformsPackageVersion
-  RUNTIME_VERSION_FULL: '8.0.19-servicing.25365.14'
+  RUNTIME_VERSION_FULL: '8.0.22-servicing.25527.7'
   # MicrosoftAspNetCoreAppRefInternalPackageVersion
-  ASPNETCORE_VERSION_FULL: '8.0.19-servicing.25372.4'
+  ASPNETCORE_VERSION_FULL: '8.0.22-servicing.25528.8'
   # MicrosoftNETSdkPackageVersion
-  SDK_VERSION_FULL: '8.0.413-servicing.25372.20'
+  SDK_VERSION_FULL: '8.0.416-servicing.25528.7'
 
 jobs:
   build-runtime:
