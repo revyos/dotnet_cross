@@ -114,7 +114,14 @@ jobs:
         - ${{ github.workspace }}/output:/output
         - ${{ github.workspace }}/packages:/packages
         - ${{ github.workspace }}/downloads:/downloads
+        - /:/run/host
     steps:
+    - name: Get more space
+      run: |
+        df -h
+        rm -rf /run/host/usr/share/dotnet
+        rm -rf /run/host/opt/ghc
+        rm -rf /run/host/usr/local/share/boost
     - name: Init
       run: |
         mkdir -p /output /packages /downloads
