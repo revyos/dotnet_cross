@@ -6,16 +6,17 @@ on:
   workflow_dispatch:
 
 env:
-  RUNTIME_VERSION: '8.0.22'
-  SDK_VERSION: '8.0.416'
-  ASPNETCORE_VERSION: '8.0.22'
+  RUNTIME_VERSION: '8.0.25'
+  SDK_VERSION: '8.0.419'
+  ASPNETCORE_VERSION: '8.0.25'
+  INSTALLER_VERSION_FULL: '8.0.419-servicing.26113.1'
   # check eng/Versions.props in installer repo
   # MicrosoftNETCorePlatformsPackageVersion
-  RUNTIME_VERSION_FULL: '8.0.22-servicing.25527.7'
+  RUNTIME_VERSION_FULL: '8.0.25-servicing.26112.3'
   # MicrosoftAspNetCoreAppRefInternalPackageVersion
-  ASPNETCORE_VERSION_FULL: '8.0.22-servicing.25528.8'
+  ASPNETCORE_VERSION_FULL: '8.0.25-servicing.26112.25'
   # MicrosoftNETSdkPackageVersion
-  SDK_VERSION_FULL: '8.0.416-servicing.25528.7'
+  SDK_VERSION_FULL: '8.0.419-servicing.26113.3'
 
 jobs:
   build-runtime:
@@ -81,7 +82,7 @@ jobs:
         mkdir -p /output /packages /downloads
     - name: Clone
       run: |
-        git clone --depth 1 -b "v$SDK_VERSION" https://github.com/dotnet/sdk
+        git clone --depth 1 -b "v$SDK_VERSION_FULL" https://github.com/dotnet/sdk
     - name: Build SDK
       run: |
         cd sdk
@@ -125,10 +126,9 @@ jobs:
     - name: Init
       run: |
         mkdir -p /output /packages /downloads
-    - name: Update Node.js
+    - name: Install node18
       run: |
-        # Not sure why kitware's key is missing
-        apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 16FAAD7AF99A65E2
+        sed -i 's/deb http/deb [trusted=yes] http/g' /etc/apt/sources.list.d/*.list
         apt-get update
         apt-get autoremove -y nodejs
         curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs
@@ -184,7 +184,7 @@ jobs:
         mkdir -p /output /packages /downloads
     - name: Clone
       run: |
-        git clone --depth 1 -b "v$SDK_VERSION" https://github.com/dotnet/installer
+        git clone --depth 1 -b "v$INSTALLER_VERSION_FULL" https://github.com/dotnet/installer
     - name: Download Output Artifacts
       uses: actions/download-artifact@v5
       with:
