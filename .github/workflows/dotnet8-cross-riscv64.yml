@@ -30,7 +30,7 @@ jobs:
       run: |
         mkdir -p /output /packages /downloads
     - name: Checkout
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
     - name: Clone
       run: |
         git clone --depth 1 -b "v$RUNTIME_VERSION" https://github.com/dotnet/runtime
@@ -52,15 +52,15 @@ jobs:
         cp -v artifacts/packages/Release/NonShipping/runtime.linux-riscv64.Microsoft.NETCore.ILAsm.*.nupkg /output
         cp -v artifacts/packages/Release/NonShipping/runtime.linux-riscv64.Microsoft.NETCore.ILDAsm.*.nupkg /output
         cd .. && rm -r runtime
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: runtime-output
         path: /output/
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: runtime-packages
         path: /packages/
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: runtime-downloads
         path: /downloads/
@@ -91,15 +91,15 @@ jobs:
         cp artifacts/packages/Release/NonShipping/dotnet-toolset-internal-*.zip /downloads/Sdk/${SDK_VERSION_FULL}/dotnet-toolset-internal-${SDK_VERSION_FULL}.zip
         cp artifacts/packages/Release/Shipping/Microsoft.DotNet.Common.*.nupkg /packages
         cd .. && rm -r sdk
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: sdk-output
         path: /output/
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: sdk-packages
         path: /packages/
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: sdk-downloads
         path: /downloads/
@@ -132,7 +132,7 @@ jobs:
         apt-get update
         apt-get autoremove -y nodejs
         curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs
-    - uses: actions/download-artifact@v4
+    - uses: actions/download-artifact@v8
       with:
         name: runtime-downloads
         path: /downloads/
@@ -154,15 +154,15 @@ jobs:
         cp artifacts/packages/Release/Shipping/Microsoft.AspNetCore.App.Runtime.linux-riscv64.*.nupkg /output
         cp artifacts/packages/Release/Shipping/Microsoft.DotNet.Web.*.nupkg /packages
         cd .. && rm -r aspnetcore
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: aspdotnet-output
         path: /output/
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: aspdotnet-packages
         path: /packages/
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: aspdotnet-downloads
         path: /downloads/
@@ -186,19 +186,19 @@ jobs:
       run: |
         git clone --depth 1 -b "v$INSTALLER_VERSION_FULL" https://github.com/dotnet/installer
     - name: Download Output Artifacts
-      uses: actions/download-artifact@v5
+      uses: actions/download-artifact@v8
       with:
         path: /output/
         pattern: '*-output'
         merge-multiple: true
     - name: Download Downloads Artifacts
-      uses: actions/download-artifact@v5
+      uses: actions/download-artifact@v8
       with:
         path: /downloads/
         pattern: '*-downloads'
         merge-multiple: true
     - name: Download Packages Artifacts
-      uses: actions/download-artifact@v5
+      uses: actions/download-artifact@v8
       with:
         path: /packages/
         pattern: '*-packages'
@@ -216,7 +216,7 @@ jobs:
         cp artifacts/packages/Release/Shipping/dotnet-sdk-*-linux-riscv64.tar.gz /output
         cp artifacts/packages/Release/Shipping/dotnet-sdk-*-linux-riscv64.tar.gz.sha512 /output
     - name: Upload .NET
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: dotnet-sdk-linux-riscv64
         path: "${{ github.workspace }}/output/*"
@@ -228,7 +228,7 @@ jobs:
 
     steps:
     - name: Download Built Artifacts
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         path: downloads
 
