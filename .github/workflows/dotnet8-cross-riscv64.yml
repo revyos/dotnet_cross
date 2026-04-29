@@ -6,17 +6,17 @@ on:
   workflow_dispatch:
 
 env:
-  RUNTIME_VERSION: '8.0.25'
-  SDK_VERSION: '8.0.419'
-  ASPNETCORE_VERSION: '8.0.25'
-  INSTALLER_VERSION_FULL: '8.0.419-servicing.26113.1'
+  RUNTIME_VERSION: '8.0.26'
+  SDK_VERSION: '8.0.420'
+  ASPNETCORE_VERSION: '8.0.26'
+  INSTALLER_VERSION_FULL: '8.0.420'
   # check eng/Versions.props in installer repo
   # MicrosoftNETCorePlatformsPackageVersion
-  RUNTIME_VERSION_FULL: '8.0.25-servicing.26112.3'
+  RUNTIME_VERSION_FULL: '8.0.26-servicing.26169.21'
   # MicrosoftAspNetCoreAppRefInternalPackageVersion
-  ASPNETCORE_VERSION_FULL: '8.0.25-servicing.26112.25'
+  ASPNETCORE_VERSION_FULL: '8.0.26-servicing.26169.11'
   # MicrosoftNETSdkPackageVersion
-  SDK_VERSION_FULL: '8.0.419-servicing.26113.3'
+  SDK_VERSION_FULL: '8.0.420-servicing.26170.6'
 
 jobs:
   build-runtime:
@@ -82,7 +82,7 @@ jobs:
         mkdir -p /output /packages /downloads
     - name: Clone
       run: |
-        git clone --depth 1 -b "v$SDK_VERSION_FULL" https://github.com/dotnet/sdk
+        git clone --depth 1 -b "v$SDK_VERSION" https://github.com/dotnet/sdk
     - name: Build SDK
       run: |
         cd sdk
